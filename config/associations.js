@@ -12,7 +12,11 @@ const applyRelations = (sequelize) => {
     bookings.belongsTo(rooms, {
         foriegnKey: 'fk_room_id',
         as: 'room',
-        foriegnKeyConstraint: true
+    })
+
+    bookings.belongsTo(centres, {
+        foriegnKey: 'fk_centre_id',
+        as: 'centre'
     })
 
     bookings.belongsTo(visitors, {

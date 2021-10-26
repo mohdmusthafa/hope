@@ -1,25 +1,49 @@
-const { bookings, rooms, centres } = require('../config/db-config').models;
+const { models } = require("../config/db-config");
+const Op = require("sequelize").Op;
 
-const getBookingsByCentreId = async (centre_id) => {
-    const all_bookings = await bookings.findAll({
-        include: 
-            {
-                model: rooms,
-                as: 'room',
-                required: true,
-                include: {
-                    model: centres,
-                    as: 'centre',
-                    required: true
-                }
-            },
-        attributes: ["id", "from", "to", "room_id"],
-        underscored: true
+const getBookings = async (centre_id, from, to) => {
+  const result = await models.bookings.findAll({
+      where: {
+          centre_id,
+          from: {
+              [Op.gt]: from
+          },
+          to: {
+              [Op.lt]: to
+          }
+      }
+  })
+
+  return result;
+};
+
+const getAvailableRooms = async (centre_id, from, to) => {
+    const booked_rooms = await getBookings(centre_id, from, to);
+    const booked_rooms_id = booked_rooms.map(value => value.id);
+
+    const rooms = models.rooms.findAll({
+        where: {
+            centre_id,
+            id: {
+                [Op.notIn]: booked_rooms_id
+            }
+        }
     })
 
-    return all_bookings
+    return result;
+}
+
+const totalRooms = async (centre_id) => {
+    const result = await models.rooms.count({
+        where: {
+            centre_id
+        }
+    })
+    return result;
 }
 
 module.exports = {
-    getBookingsByCentreId
-}
+  getBookings,
+  getAvailableRooms,
+  totalRooms
+};
