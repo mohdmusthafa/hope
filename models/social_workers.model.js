@@ -1,21 +1,29 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-    sequelize.define('bookings', {
+    sequelize.define('social_workers', {
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER
         },
-        from: {
-            type: DataTypes.DATE,
+        name: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
-        to: {
-            type: DataTypes.DATE,
+        designation: {
+            type: DataTypes.STRING,
             allowNull: false
         },
+        contact_no: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        address: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }
     }, {
         timestamps: false,
         underscored: true

@@ -1,21 +1,25 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-    sequelize.define('bookings', {
+    sequelize.define('forms', {
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER
         },
-        from: {
-            type: DataTypes.DATE,
+        name: {
+            type: DataTypes.STRING,
             allowNull: false,
         },
-        to: {
-            type: DataTypes.DATE,
+        location: {
+            type: DataTypes.STRING,
             allowNull: false
         },
+        uploaded_on: {
+            type: DataTypes.DATE,
+            allowNull: false
+        }
     }, {
         timestamps: false,
         underscored: true
