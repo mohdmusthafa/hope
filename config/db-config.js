@@ -7,6 +7,11 @@ const DB_CONFIG = {
     database: process.env.DB_NAME || 'hope',
     username: process.env.DB_USERNAME || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
+    define: {
+        timestamps: false,
+        underscored: true,
+        underscoredAll: true
+    }
 }
 
 const seqeulize = new Sequelize(DB_CONFIG.database, DB_CONFIG.username, DB_CONFIG.password, {
@@ -30,6 +35,6 @@ for (const modelDefiner of modelDefiners) {
 
 applyRelations(seqeulize);
 
-
 // seqeulize.sync({ force: true })
+
 module.exports = seqeulize;

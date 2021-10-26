@@ -1,4 +1,6 @@
+const app = require('./app');
 const sequelize = require('./config/db-config');
+const PORT = process.env.PORT || 3000;
 
 async function assertDatabaseConnectionOk() {
 	console.log(`Checking database connection...`);
@@ -15,6 +17,10 @@ async function assertDatabaseConnectionOk() {
 async function init() {
     await assertDatabaseConnectionOk();
     console.log(`Starting API Server`);
+
+	app.listen(PORT, () => {
+		console.log(`Server started on ${PORT}`)
+	})
 }
 
 init();
