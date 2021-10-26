@@ -2,7 +2,7 @@
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.202.5/containers/javascript-node-postgres
 // Update the VARIANT arg in docker-compose.yml to pick a Node.js version
 {
-	"name": "Node.js & PostgreSQL",
+	"name": "Hope Server and Database",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspace",
@@ -24,8 +24,6 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"dbaeumer.vscode-eslint",
-		"mtxr.sqltools",
-		"mtxr.sqltools-driver-pg",
 		"esbenp.prettier-vscode"
 	],
 
@@ -33,7 +31,7 @@
 	"forwardPorts": [3000, 5432],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "yarn install",
+	"postCreateCommand": "npm install",
 
 	// Comment out connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
 	"remoteUser": "node",
