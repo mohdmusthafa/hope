@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
             allowNull: false
         },
         contact_no: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false
         },
         address: {

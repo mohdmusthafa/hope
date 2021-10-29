@@ -5,14 +5,14 @@ module.exports = (sequelize) => {
         id: {
             allowNull: false,
             primaryKey: true,
-            type: DataTypes.INTEGER
+            type: DataTypes.STRING
         },
         name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
         contact_no: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.STRING,
             allowNull: false
         },
         address: {

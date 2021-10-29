@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-amplify/4.3.4-unstable.7/aws-amplify.js" integrity="sha512-yr0rh/GMLwjfDEzJX6kQA9MI01r0CpEfxOTe+OQmbVo1MXakWyvfGepSCtzujNOHBviIemRf3VTmqu+broF2Zw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="aws-exports.js"></script>
+    <script>
+        const Amplify = window.aws_amplify.Amplify;
+        Amplify.configure(window.awsmobile);
+        
+
+        async function signUp() {
+            try {
+                const { user } = await Amplify.Auth.signUp({
+                    username: "+917902559756",
+                    password: 'password',
+                    attributes: {
+                        name: 'Mohammed Musthafa'
+                    }
+                })
+
+                console.log(user)
+            } catch (error) {
+                console.log('error signing up: ', error)
+            }
+        }
+
+        // signUp()
+
+        async function signIn() {
+            try {
+                const user = await Amplify.Auth.signIn('+917902559756', 'Shabeeba@mu5thu')
+                // const accessToken = user.signInUserSession.accessToken
+                // localStorage.setItem("accessToken", accessToken)
+            } catch (error) {
+                console.log('error signing in: ', error)
+            }
+        }
+
+        signIn()
+    </script>
+</body>
+</html>
