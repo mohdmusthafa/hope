@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        uploaded_on: {
+        form_date: {
             type: DataTypes.DATE,
             allowNull: false
         }
