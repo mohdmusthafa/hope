@@ -9,6 +9,7 @@
   "author": "mohdmusthafa",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.39.0",
     "express": "^4.17.1",
     "formidable": "^1.2.2",
     "jsonwebtoken": "^8.5.1",

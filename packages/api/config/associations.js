@@ -10,37 +10,58 @@ const applyRelations = (sequelize) => {
     } = sequelize.models;
 
     bookings.belongsTo(rooms, {
-        foriegnKey: 'fk_room_id',
-        as: 'room',
+        foriegnKey: {
+            name: 'fk_room_id',
+            allowNull: false
+        },
+        as: 'room'
     })
 
     bookings.belongsTo(centres, {
-        foriegnKey: 'fk_centre_id',
+        foriegnKey: {
+            name: 'fk_centre_id',
+            allowNull: false
+        },
         as: 'centre'
     })
 
     bookings.belongsTo(visitors, {
-        foriegnKey: 'fk_booked_by',
+        foriegnKey: {
+            name: 'fk_booked_by',
+            allowNull: false
+        },
         as: 'booked_by'
     })
 
     rooms.belongsTo(centres, {
-        foriegnKey: 'fk_centre_id',
+        foriegnKey: {
+            name: 'fk_centre_id',
+            allowNull: false
+        },
         as: 'centre'
     })
 
     social_workers.belongsTo(centres, {
-        foriegnKey: 'fk_centre_id',
+        foriegnKey: {
+            name: 'fk_centre_id',
+            allowNull: false
+        },
         as: 'centre'
     })
 
     forms.belongsTo(visitors, {
-        foriegnKey: 'fk_uploaded_by',
+        foriegnKey: {
+            name: 'fk_uploaded_by',
+            allowNull: false
+        },
         as: 'uploaded_by'
     })
 
     forms.belongsTo(form_types, {
-        foriegnKey: 'fk_form_types',
+        foriegnKey: {
+            name: 'fk_form_types',
+            allowNull: false
+        },
         as: 'type'
     })
 

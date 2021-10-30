@@ -10,12 +10,19 @@ router.route('/')
         const all_uploads = await forms_repo.getUploads(req.username);
         res.status(200).json(all_uploads);
     })
-    .post((req, res) => {
+    .post(async (req, res) => {
         const { type, form_date } = req.fields;
-        // const location = await uploadFileToS3(file);
-        const location = 's3:/home/uploads/';
-        // await addFileEntry(type, form_date);
+        const file = req.files.file;
+        const location = await forms_repo.uploadFileToS3(file);
+        console.log(location);
+        await forms_repo.addFileEntry(type, form_date, location, req.username);
         res.status(201).end();
     })
+
+
+router.get('/types', async (req, res) => {
+    const types = await forms_repo.getTypes();
+    res.status(200).json(types);
+})
 
 module.exports = router;
