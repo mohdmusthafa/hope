@@ -30,7 +30,7 @@ const getAvailableRooms = async (centre_id, from, to) => {
         }
     })
 
-    return result;
+    return rooms;
 }
 
 const totalRooms = async (centre_id) => {
