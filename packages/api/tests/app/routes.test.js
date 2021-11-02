@@ -100,7 +100,7 @@ describe('forms routes', () => {
             .field('type', 'Medical Prescription')
             .field('form_date', '2020-01-01')
             .expect(201)
-    })
+    }, 10000)
 
     test('get types', async () => {
         const result = await supertest(app)
@@ -108,6 +108,24 @@ describe('forms routes', () => {
             .set('authorization', token)
             .expect(200)
         expect(result.body).toBeTruthy()
+    })
+})
+
+describe('social workers routes', () => {
+    test('get all social workers', async () => {
+        const result = await supertest(app)
+            .get('/social_workers/')
+            .query({ centre_id: 1 })
+            .set('authorization', token)
+            .expect(200)
+        expect(result.body).toBeTruthy()
+    })
+
+    test('get all social workers should not work when no centre_id is provided', async () => {
+        await supertest(app)
+            .get('/social_workers/')
+            .set('authorization', token)
+            .expect(400)
     })
 })
 
