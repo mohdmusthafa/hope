@@ -27,6 +27,14 @@ describe('bookings routes', () => {
             .expect(400)
     })
 
+    test('list bookings should not work if no from and to provided', async () => {
+        await supertest(app)
+            .get('/bookings/')
+            .query({ centre_id: 1 })
+            .set('authorization', token)
+            .expect(400)
+    })
+
     test('list available rooms', async () => {
         const result = await supertest(app)
             .get('/bookings/available-rooms')
@@ -40,6 +48,14 @@ describe('bookings routes', () => {
     test('available bookings should not work if no query provided', async () => {
         await supertest(app)
             .get('/bookings/available-rooms')
+            .set('authorization', token)
+            .expect(400)
+    })
+
+    test('available bookings should not work if no from and to provided', async () => {
+        await supertest(app)
+            .get('/bookings/available-rooms')
+            .query({ centre_id: 1 })
             .set('authorization', token)
             .expect(400)
     })
