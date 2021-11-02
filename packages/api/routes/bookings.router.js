@@ -17,7 +17,7 @@ router.get('/available-rooms', async (req, res) => {
     const { centre_id, from, to } = req.query;
 
     if (!centre_id && !from && !to) {
-        return res.status(400).json({ message: 'Please provide centre_id and from and to '})
+        return res.status(400).json({ message: 'Please provide centre_id and from and to'})
     }
 
     const available_rooms = await bookings_repo.getAvailableRooms(centre_id, from, to);

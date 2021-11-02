@@ -1,4 +1,5 @@
 const app = require('./app');
+const sequelize = require('./config/db-config');
 const PORT = process.env.PORT || 3000;
 
 async function assertDatabaseConnectionOk() {

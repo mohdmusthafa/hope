@@ -5,6 +5,7 @@ beforeAll(async () => {
     await seqeulize.authenticate();
 })
 
+
 test('get types to be valid', async () => {
     const result = await getTypes();
     expect(result).toBeTruthy();
