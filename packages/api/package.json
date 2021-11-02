@@ -4,7 +4,7 @@
   "description": "API for Hope App",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest"
   },
   "author": "mohdmusthafa",
   "license": "ISC",
