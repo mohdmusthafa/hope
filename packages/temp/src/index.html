@@ -17,10 +17,12 @@
         async function signUp() {
             try {
                 const { user } = await Amplify.Auth.signUp({
-                    username: "+917902559756",
-                    password: 'password',
+                    username: "+916828497612",
+                    password: 'Shabeeba@mu5thu',
                     attributes: {
-                        name: 'Mohammed Musthafa'
+                        name: 'Mohammed Musthafa',
+                        address: '123 Avenue St',
+                        "custom:role": "admin"
                     }
                 })
 
@@ -30,7 +32,7 @@
             }
         }
 
-        // signUp()
+        signUp()
 
         async function signIn() {
             try {
@@ -43,7 +45,7 @@
             }
         }
 
-        signIn()
+        // signIn()
     </script>
 </body>
 </html>
