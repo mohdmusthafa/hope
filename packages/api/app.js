@@ -6,6 +6,7 @@ const contacts_router = require('./routes/contacts.router');
 const forms_router = require('./routes/forms.router');
 const visitors_router = require('./routes/visitors.router');
 const social_workers_router = require('./routes/social_workers.router');
+const users_router = require('./routes/users.router');
 
 const app = express();
 
@@ -16,5 +17,6 @@ app.use('/contacts', contacts_router);
 app.use('/forms', forms_router);
 app.use('/visitors', visitors_router);
 app.use('/social_workers', social_workers_router);
+app.use('/users', users_router);
 
 module.exports = app;

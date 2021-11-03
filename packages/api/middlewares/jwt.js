@@ -3,7 +3,8 @@ var jwkToPem = require("jwk-to-pem");
 const { promisify } = require("util");
 const jwk = require("../config/jwks.json");
 
-const cognitoIssuer = "https://cognito-idp.ap-south-1.amazonaws.com/ap-south-1_7klGtD061";
+const cognitoIssuer =
+  "https://cognito-idp.ap-south-1.amazonaws.com/ap-south-1_7klGtD061";
 
 const getPublicKeys = async () => {
   const keys = jwk.keys.reduce((agg, current) => {
@@ -15,7 +16,7 @@ const getPublicKeys = async () => {
   return keys;
 };
 
-const verifyPromised = promisify(jsonwebtoken.verify.bind(jsonwebtoken))
+const verifyPromised = promisify(jsonwebtoken.verify.bind(jsonwebtoken));
 
 module.exports = async (req, res, next) => {
   const token = req.headers["authorization"];
@@ -36,7 +37,7 @@ module.exports = async (req, res, next) => {
   try {
     claim = await verifyPromised(token, key.pem);
   } catch (error) {
-      return res.status(401).json({ message: error.message })
+    return res.status(401).json({ message: error.message });
   }
   const currentSeconds = Math.floor(new Date().valueOf() / 1000);
 
@@ -45,11 +46,18 @@ module.exports = async (req, res, next) => {
   }
 
   if (claim.iss !== cognitoIssuer) {
-      return res.status(401).json({ message: "Claim issuer is invalid" })
+    return res.status(401).json({ message: "Claim issuer is invalid" });
   }
 
-  if(claim.token_use !== "access") {
-    return res.status(401).json({ message: "Claim use is not access" })
+  if (claim.token_use === "id" && claim["custom:role"] === "admin") {
+    req.admin = claim["custom:role"];
+    (req.username = claim["cognito:username"])
+    next();
+    return;
+  }
+
+  if (claim.token_use !== "access") {
+    return res.status(401).json({ message: "Claim use is not access" });
   }
 
   req.username = claim.username;
