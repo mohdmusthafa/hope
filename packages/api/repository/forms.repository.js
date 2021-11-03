@@ -1,4 +1,3 @@
-const { QueryTypes } = require('sequelize')
 const { PutObjectCommand } = require('@aws-sdk/client-s3');
 const { s3Client } = require('../libs/s3Client');
 const fs = require('fs/promises');
@@ -32,14 +31,14 @@ const uploadFileToS3 = async (file) => {
 }
 
 const addFileEntry = async (type, form_date, location, username) => {
-    await sequelize.query(
-        `INSERT INTO public.forms
-        ("location", form_date, uploaded_by_id, type_name)
-        VALUES('${location}', '${form_date}', '${username}', '${type}');`,
-        {
-            type: QueryTypes.INSERT
-        }
-    )
+    const request = {
+        typeName: type,
+        form_date,
+        location,
+        uploadedById: username
+    }
+
+    await models.forms.create(request)
 
     return;
 }
