@@ -4,6 +4,7 @@ const seqeulize = require('../../config/db-config');
 const fs = require('fs/promises');
 
 const token = process.env.TEST_TOKEN;
+const adminToken = process.env.TEST_ADMIN_TOKEN;
 
 beforeAll(async () => {
     await seqeulize.authenticate()
@@ -143,6 +144,27 @@ describe('social workers routes', () => {
             .set('authorization', token)
             .expect(400)
     })
+
+    test('add social worker', async () => {
+        await supertest(app)
+            .post('/social_workers?centre_id=1')
+            .set('authorization', adminToken)
+            .send({
+                name: "Social Worker 1",
+                designation: "Care Taker",
+                contact_no: "+9179024486789",
+                address: "123 Avenue St."
+            })
+            .expect(201)
+    })
+
+    test('add social worker should not work when payload is not provided', async () => {
+        await supertest(app)
+            .post('/social_workers?centre_id=1')
+            .set('authorization', adminToken)
+            .expect(400)
+    })
+
 })
 
 afterAll(async () => {

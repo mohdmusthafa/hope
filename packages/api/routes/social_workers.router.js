@@ -19,6 +19,12 @@ router.route('/')
             address,
         } = req.body;
 
+        if (
+            !name && !designation && !contact_no && !address
+        ) {
+            return res.status(400).json({ message: 'Please provide name, designation, contact_no and address' })
+        }
+
         const result = await social_workers_repo.addSocialWorker(req.centre_id, {
             name,
             designation,

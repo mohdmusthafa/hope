@@ -26,3 +26,19 @@ describe('cognito jwt authorization middleware', () => {
         expect(response.body).toBeTruthy()
     })
 })
+
+describe('cognito jwt id token authorization middleware', () => {
+    it('should fail if access token is provided instead id token', async () => {
+        await supertest(app)
+            .get('/users/authenticated')
+            .expect(401)
+            .set('authorization', process.env.TEST_TOKEN)
+    })
+
+    it('should succeed if valid id token is provided with admin permissions', async () => {
+        await supertest(app)
+            .get('/users/authenticated')
+            .set('authorization', process.env.TEST_ADMIN_TOKEN)
+            .expect(200)
+    })
+})
