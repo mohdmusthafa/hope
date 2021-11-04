@@ -8,6 +8,12 @@ provider:
   runtime: nodejs12.x
   lambdaHashingVersion: 20201221
   region: ap-south-1
+  environment:
+    DB_HOST: database-1.cpez1jjrq2lt.ap-south-1.rds.amazonaws.com
+    DB_NAME: hope
+    DB_USERNAME: postgres
+    DB_PASSWORD: CyjM0TEhc4dM9HkZtA5G
+    DB_PORT: 5432
 
 functions:
   postAuth:

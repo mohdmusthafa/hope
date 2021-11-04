@@ -4,3 +4,4 @@ node_modules/
 coverage/
 jspm_packages
 .serverless
+*-lock.json
