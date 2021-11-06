@@ -42,8 +42,29 @@ const totalRooms = async (centre_id) => {
     return result;
 }
 
+const addBookings = async (centre_id, from, to, room_id, booked_by) => {
+    const request = {
+        centreId: centre_id,
+        from,
+        to,
+        roomId: room_id,
+        bookedById: booked_by
+    }
+
+    const result = await models.bookings.create(request)
+
+    return result;
+}
+
+const deleteBooking = async (booking_id) => {
+    const result = await models.bookings.destroy({ where: { id: booking_id }})
+    return result;
+}
+
 module.exports = {
   getBookings,
   getAvailableRooms,
-  totalRooms
+  totalRooms,
+  addBookings,
+  deleteBooking
 };
