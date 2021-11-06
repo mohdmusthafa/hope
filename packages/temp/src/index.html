@@ -7,6 +7,22 @@
     <title>Document</title>
 </head>
 <body>
+    <div>
+        <button onclick="generateToken('+917902559756')">Generate User Tokens</button>
+        <button onclick="generateToken('+917902559751')">Generate Admin Tokens</button>
+    </div>
+
+    <div>
+        <span>Access Token </span> <br />
+        <button onclick="copyAccessToken()">Copy Access Token</button>
+        <span id="accessToken"></span>
+
+        <br />
+        <span>ID Token</span><br />
+        <button onclick="copyIDToken()">Copy ID Token</button>
+        <span id="idToken"></span>
+
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aws-amplify/4.3.4-unstable.7/aws-amplify.js" integrity="sha512-yr0rh/GMLwjfDEzJX6kQA9MI01r0CpEfxOTe+OQmbVo1MXakWyvfGepSCtzujNOHBviIemRf3VTmqu+broF2Zw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="aws-exports.js"></script>
     <script>
@@ -18,7 +34,7 @@
             try {
                 const { user } = await Amplify.Auth.signUp({
                     username: "+917902559751",
-                    password: 'Shabeeba@mu5thu',
+                    password: 'DevUser@123',
                     attributes: {
                         name: 'Mohammed Musthafa',
                         address: '123 Avenue St',
@@ -34,18 +50,32 @@
 
         // signUp()    
 
-        async function signIn() {
-            try {
-                const user = await Amplify.Auth.signIn('+917902559751', 'Shabeeba@mu5thu')
-                console.log(user)
-                // const accessToken = user.signInUserSession.accessToken
-                // localStorage.setItem("accessToken", accessToken)
-            } catch (error) {
-                console.log('error signing in: ', error)
-            }
+
+        // signIn()
+
+        async function generateToken(phone) {
+            const password = "DevUser@123"; 
+
+            const user = await Amplify.Auth.signIn(phone, password);
+
+            const userResponse = await Amplify.Auth.currentSession();
+
+            const { accessToken, idToken } = userResponse;
+
+            document.getElementById("accessToken").innerHTML = accessToken.jwtToken;
+            document.getElementById("idToken").innerHTML = idToken.jwtToken;
+
+            window.accessToken = accessToken.jwtToken;
+            window.idToken = idToken.jwtToken;
         }
 
-        signIn()
+        function copyAccessToken() {
+            navigator.clipboard.writeText(window.accessToken)
+        }
+
+        function copyIDToken() {
+            navigator.clipboard.writeText(window.idToken)
+        }
     </script>
 </body>
 </html>
